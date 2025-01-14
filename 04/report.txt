@@ -1,0 +1,457 @@
+PART 1: METADATA ANALYSIS OF EV CHARGING STATION DATASETS ON DATA.GOUV.FR
+
+1. Required Metadata Standards
+
+The French open data portal enforces specific metadata requirements for EV charging station datasets. These requirements ensure consistency while maintaining practical usability:
+
+Title & Description
+- Titles must include geographic scope and data type
+- Descriptions must detail coverage area and update frequency
+- Both fields support French and English versions
+- Keywords must use standardized vocabulary for charging stations
+
+Temporal Information
+- Publication date (ISO 8601 format)
+- Last update timestamp
+- Update frequency declaration
+- Data validity period
+- Historical coverage dates
+- Real-time data latency (if applicable)
+
+Spatial Coverage
+- Administrative area codes
+- Geographic bounding box
+- Coverage completeness declaration
+- Excluded areas or gaps
+- Coordinate reference system specification
+
+Attribution & Licensing
+- Data producer identification
+- Data owner organization
+- Maintenance responsibility
+- License type (must be open data compatible)
+- Usage restrictions (if any)
+- Commercial use declaration
+
+Quality Indicators
+- Completeness percentage
+- Update frequency compliance
+- Geographic accuracy level
+- Field population rates
+- Validation status
+- Last verification date
+
+Contact Information
+- Technical contact
+- Data maintenance contact
+- API support contact
+- Error reporting procedure
+- Update request process
+
+2. Optional but Recommended Metadata
+
+The portal encourages additional metadata to enhance dataset usability:
+
+Documentation Links
+- API documentation
+- Field definitions
+- Coding standards
+- Update procedures
+- Quality control processes
+- Usage examples
+
+Related Resources
+- Associated datasets
+- Historical versions
+- Alternative formats
+- Visualization tools
+- Mobile applications
+- Analysis reports
+
+3. Metadata Implementation
+
+The metadata system implements several practical features:
+
+Version Control
+- Dataset version numbering
+- Change log requirements
+- Update notification system
+- Archival policy
+- Historical version access
+
+Quality Management
+- Automated validation checks
+- Manual review procedures
+- User feedback integration
+- Error correction tracking
+- Quality score calculation
+
+Access Control
+- Public access levels
+- API key requirements
+- Rate limiting details
+- Usage monitoring
+- Access statistics
+
+4. Metadata Validation
+
+The portal enforces metadata quality through:
+
+Automated Checks
+- Required field presence
+- Format compliance
+- URL validity
+- Date consistency
+- Geographic boundary validation
+
+Manual Review
+- Description completeness
+- License appropriateness
+- Contact information validity
+- Documentation adequacy
+- Overall quality assessment
+
+5. Metadata Evolution
+
+The metadata standards show clear development patterns:
+
+Historical Changes
+- Initial basic requirements
+- Gradual expansion of fields
+- Response to user needs
+- Integration of new standards
+- Adaptation to technology changes
+
+Current Trends
+- Increased automation
+- Better validation tools
+- More detailed quality metrics
+- Enhanced multilingual support
+- Improved API documentation
+
+PART 2: DATA FORMATS & TECHNICAL STANDARDS
+
+1. Core Data Format Requirements
+
+Primary Formats
+- CSV mandatory for static data (UTF-8 encoded)
+- GeoJSON required for spatial representations
+- JSON for API responses
+- XML supported for legacy systems
+- Real-time data must support GTFS-RT format
+
+Format Specifications
+- Character encoding: UTF-8 mandatory
+- Date format: ISO 8601
+- Decimal separator: period (.)
+- Coordinate system: WGS84
+- File size limits: 100MB per file
+- Compression: GZIP supported
+
+2. Technical Standards
+
+API Requirements
+- REST API mandatory for real-time data
+- HTTPS protocol required
+- OAuth 2.0 authentication supported
+- Rate limiting implementation required
+- Cache-control headers mandatory
+- CORS support required
+
+Data Exchange Protocols
+- HTTP/HTTPS for web access
+- FTP/SFTP for bulk transfers
+- WebSocket for real-time updates
+- MQTT for IoT device integration
+- GraphQL endpoints optional
+
+3. Real-time Data Standards
+
+Update Requirements
+- Maximum latency: 5 minutes
+- Timestamp mandatory for each update
+- Status change logging required
+- Availability status standardization
+- Error state definitions
+- Fallback mechanism specification
+
+Synchronization Standards
+- Delta updates supported
+- Full refresh mechanism required
+- Version control implementation
+- Conflict resolution protocols
+- Backup data availability
+
+4. Validation & Quality Control
+
+Technical Validation
+- Schema validation required
+- Format compliance checking
+- Data type verification
+- Relationship validation
+- Constraint checking
+- Duplicate detection
+
+Quality Metrics
+- Response time monitoring
+- Availability tracking
+- Error rate measurement
+- Data freshness verification
+- Completeness checking
+
+5. Security Standards
+
+Access Control
+- API key management
+- Role-based access control
+- IP whitelisting support
+- Rate limiting implementation
+- Request logging requirements
+
+Data Protection
+- Personal data anonymization
+- Sensitive data handling
+- Encryption requirements
+- Audit trail maintenance
+- Backup requirements
+
+6. Integration Standards
+
+System Integration
+- Standard API endpoints
+- Webhook support
+- Event notification system
+- Batch processing capability
+- Error handling protocols
+
+Interoperability
+- Cross-platform compatibility
+- Standard data exchange formats
+- Common vocabulary usage
+- Protocol standardization
+- Interface documentation
+
+7. Performance Requirements
+
+Response Times
+- API response: < 500ms
+- Bulk download speed: > 10MB/s
+- Real-time update: < 5s
+- Search query: < 1s
+- Batch processing: < 1h
+
+Availability
+- Uptime requirement: 99.9%
+- Maintenance window specification
+- Backup system requirements
+- Failover procedures
+- Recovery time objectives
+
+8. Documentation Requirements
+
+Technical Documentation
+- API reference mandatory
+- Format specifications
+- Integration guides
+- Code examples
+- Error documentation
+
+Implementation Guides
+- Best practices documentation
+- Integration tutorials
+- Troubleshooting guides
+- Update procedures
+- Migration guidelines
+
+PART 3: SCHEMA REQUIREMENTS & FIELD SPECIFICATIONS
+
+1. Core Schema Structure
+
+Station Identification
+```json
+{
+  "station_id": {
+    "type": "string",
+    "required": true,
+    "format": "^[A-Z]{2}-[0-9]{6}$",
+    "description": "Unique station identifier"
+  },
+  "name": {
+    "type": "string",
+    "required": true,
+    "max_length": 100
+  },
+  "operator": {
+    "type": "string",
+    "required": true,
+    "vocabulary": "operators_list"
+  }
+}
+```
+
+Location Fields
+```json
+{
+  "address": {
+    "street": {"type": "string", "required": true},
+    "city": {"type": "string", "required": true},
+    "postal_code": {"type": "string", "pattern": "^[0-9]{5}$"},
+    "country": {"type": "string", "default": "FR"}
+  },
+  "coordinates": {
+    "latitude": {
+      "type": "number",
+      "required": true,
+      "min": -90,
+      "max": 90
+    },
+    "longitude": {
+      "type": "number",
+      "required": true,
+      "min": -180,
+      "max": 180
+    },
+    "altitude": {
+      "type": "number",
+      "optional": true
+    }
+  }
+}
+```
+
+2. Technical Specifications
+
+Charging Capabilities
+```json
+{
+  "charging_points": {
+    "type": "array",
+    "required": true,
+    "items": {
+      "point_id": "string",
+      "power_type": {
+        "type": "string",
+        "enum": ["AC", "DC"]
+      },
+      "power_level": {
+        "type": "number",
+        "unit": "kW"
+      },
+      "connector_type": {
+        "type": "string",
+        "vocabulary": "connector_types"
+      }
+    }
+  }
+}
+```
+
+3. Operational Data
+
+Availability Information
+```json
+{
+  "status": {
+    "type": "string",
+    "enum": ["available", "occupied", "outofservice", "planned"],
+    "required": true
+  },
+  "operating_hours": {
+    "type": "string",
+    "format": "opening_hours"
+  },
+  "last_updated": {
+    "type": "datetime",
+    "format": "ISO8601",
+    "required": true
+  }
+}
+```
+
+4. Standard Vocabularies
+
+Connector Types
+- Type2
+- CHAdeMO
+- CCS
+- Tesla_Supercharger
+- Domestic
+
+Power Levels
+- Normal: ≤ 7.4kW
+- Accelerated: > 7.4kW and ≤ 22kW
+- Fast: > 22kW and ≤ 50kW
+- Ultra-fast: > 50kW
+
+Access Types
+- Public
+- Private
+- Restricted
+- Subscription
+
+5. Validation Rules
+
+Geographic Validation
+- Coordinates must be within France
+- Address must match coordinates
+- Altitude when available must be reasonable
+
+Technical Validation
+- Power levels must match connector types
+- Status updates must be recent
+- Operating hours must be valid format
+
+Business Rules
+- Public stations must have access instructions
+- Payment methods required if not free
+- Contact information for maintenance
+
+6. Extended Fields
+
+Optional but Recommended
+```json
+{
+  "amenities": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "enum": ["parking", "shelter", "lighting", "security"]
+    }
+  },
+  "payment_methods": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "vocabulary": "payment_types"
+    }
+  },
+  "accessibility": {
+    "wheelchair": "boolean",
+    "height_restriction": "number",
+    "parking_restrictions": "string"
+  }
+}
+```
+
+7. Real-time Data Extensions
+
+Status Updates
+```json
+{
+  "real_time_data": {
+    "current_status": "string",
+    "power_delivered": "number",
+    "queue_length": "integer",
+    "estimated_wait_time": "integer"
+  }
+}
+```
+
+8. Schema Evolution Support
+
+Version Control
+- Schema version numbering
+- Backward compatibility requirements
+- Migration path documentation
+- Deprecation notices
+- Field lifecycle management
