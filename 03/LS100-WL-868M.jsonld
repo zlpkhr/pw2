@@ -1,0 +1,47 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "PLANET IP65 LoRaWAN Water Leak Sensor EU868 Sub 1G 2 x",
+  "sku": "LS100-WL-868M",
+  "description": "PLANET IP65 LoRaWAN Water Leak Sensor EU868 Sub 1G 2 x. Type de produit: Détecteur de fuite d'eau, Couleur du produit: Blanc. Type de source d'alimentation: Batterie, Tension des piles: 3,6 V, Autonomie batterie: 5 année(s)",
+  "brand": {
+    "@type": "Brand",
+    "name": "PLANET"
+  },
+  "manufacturer": "PLANET",
+  "offers": {
+    "@type": "Offer",
+    "price": "119.50",
+    "priceCurrency": "EUR",
+    "priceValidUntil": "2025-02-06",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Senetic France",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "9, Rue du Quatre Septembre",
+        "addressLocality": "Paris",
+        "postalCode": "75002",
+        "addressCountry": "FR"
+      }
+    }
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Protection Rating",
+      "value": "IP65"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Battery Life",
+      "value": "5 years"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Battery Voltage",
+      "value": "3.6V"
+    }
+  ]
+}
